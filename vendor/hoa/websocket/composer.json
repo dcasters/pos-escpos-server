@@ -1,0 +1,51 @@
+{
+    "name"       : "hoa/websocket",
+    "description": "The Hoa\\Websocket library.",
+    "type"       : "library",
+    "keywords"   : ["library", "websocket", "server", "client", "realtime",
+                    "socket", "rfc6455", "rfc3986", "rfc3629", "hybi"],
+    "homepage"   : "https://hoa-project.net/",
+    "license"    : "BSD-3-Clause",
+    "authors"    : [
+        {
+            "name" : "Ivan Enderlin",
+            "email": "ivan.enderlin@hoa-project.net"
+        },
+        {
+            "name"    : "Hoa community",
+            "homepage": "https://hoa-project.net/"
+        }
+    ],
+    "support": {
+        "email" : "support@hoa-project.net",
+        "irc"   : "irc://chat.freenode.net/hoaproject",
+        "forum" : "https://users.hoa-project.net/",
+        "docs"  : "https://central.hoa-project.net/Documentation/Library/Websocket",
+        "source": "https://central.hoa-project.net/Resource/Library/Websocket"
+    },
+    "require": {
+        "hoa/consistency": "~1.0",
+        "hoa/event"      : "~1.0",
+        "hoa/exception"  : "~1.0",
+        "hoa/socket"     : "~1.0",
+        "hoa/http"       : "~1.0"
+    },
+    "require-dev": {
+        "ext-iconv": "*",
+        "hoa/test" : "~2.0"
+    },
+    "suggest": {
+        "ext-openssl": "To get a better security when exchanging messages."
+    },
+    "autoload": {
+        "psr-4": {
+            "Hoa\\Websocket\\": "."
+        },
+        "files": ["Socket.php"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.x-dev"
+        }
+    }
+}

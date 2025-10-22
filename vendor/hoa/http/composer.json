@@ -1,0 +1,43 @@
+{
+    "name"       : "hoa/http",
+    "description": "The Hoa\\Http library.",
+    "type"       : "library",
+    "keywords"   : ["library", "http", "request", "response", "runtime",
+                    "rfc2295", "rfc2324", "rfc2518", "rfc2774", "rfc3229",
+                    "rfc4918", "rfc5842", "rfc6585", "rfc7231", "rfc7232",
+                    "rfc7233", "rfc7235", "rfc7237"],
+    "homepage"   : "https://hoa-project.net/",
+    "license"    : "BSD-3-Clause",
+    "authors"    : [
+        {
+            "name" : "Ivan Enderlin",
+            "email": "ivan.enderlin@hoa-project.net"
+        },
+        {
+            "name"    : "Hoa community",
+            "homepage": "https://hoa-project.net/"
+        }
+    ],
+    "support": {
+        "email" : "support@hoa-project.net",
+        "irc"   : "irc://chat.freenode.net/hoaproject",
+        "forum" : "https://users.hoa-project.net/",
+        "docs"  : "https://central.hoa-project.net/Documentation/Library/Http",
+        "source": "https://central.hoa-project.net/Resource/Library/Http"
+    },
+    "require": {
+        "hoa/consistency": "~1.0",
+        "hoa/exception"  : "~1.0",
+        "hoa/stream"     : "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hoa\\Http\\": "."
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}
