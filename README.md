@@ -84,9 +84,9 @@ const printJob = {
 action: 'print',
 data: {
 logo: 'https://example.com/logo.png',
-header_text: 'KOPKAR SIWS',
-display_name: 'Koperasi Karyawan SIWS',
-address: 'Jl. Bukit Damar II No. 1',
+header_text: 'Your Store Name',
+display_name: 'Your Display Location',
+address: 'Your Address Here',
 invoice_no_prefix: 'INV',
 invoice_no: '12345',
 invoice_date: '23/10/2025',
