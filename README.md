@@ -20,11 +20,11 @@ Real-time printing solution with logo support, auto-reconnect, and Windows Servi
 ## 📖 Overview
 
 **Kiosk Print Server** is an enterprise printing solution for web-based Point of Sale (POS) self-service systems. The
-server uses **WebSocket protocol** (port 12000) for real-time communication with ESC/POS thermal printers.
+server uses **WebSocket protocol** (port 6441) for real-time communication with ESC/POS thermal printers.
 
 ### ✨ Key Features
 
-- ✅ **WebSocket Real-time** - Bidirectional communication via port 12000
+- ✅ **WebSocket Real-time** - Bidirectional communication via port 6441
 - ✅ **Logo Printing** - Auto-download, cache, and print logos using RAW ESC/POS
 - ✅ **Auto-reconnect** - Client reconnection mechanism
 - ✅ **Multi-printer Support** - Windows, Network, Linux device support
