@@ -193,8 +193,8 @@ class Escpos
 
     private function print_bitmap_raw($imagePath)
     {
-        $img = @imagecreatefrompng($imagePath);
-        if (!$img) { echo '> Cannot load PNG for raw print' . "\n"; return false; }
+        $img = imagecreatefrompng($imagePath);
+        if ($img === false) { echo '> Cannot load PNG for raw print' . "\n"; return false; }
 
         $width  = imagesx($img);
         $height = imagesy($img);
@@ -248,15 +248,15 @@ class Escpos
         }
 
         $tmp = $logoDir . $file;
-        $bin = @file_get_contents($url);
+        $bin = file_get_contents($url);
         if ($bin === false) { echo "> Download failed\n"; return false; }
         file_put_contents($tmp, $bin);
         echo "> Downloaded (" . strlen($bin) . " bytes)\n";
 
-        if (!extension_loaded('gd')) { @unlink($tmp); echo "> GD not loaded\n"; return false; }
+        if (!extension_loaded('gd')) { unlink($tmp); echo "> GD not loaded\n"; return false; }
 
-        $src = @imagecreatefrompng($tmp);
-        if (!$src) { @unlink($tmp); echo "> Cannot read source PNG\n"; return false; }
+        $src = imagecreatefrompng($tmp);
+        if ($src === false) { unlink($tmp); echo "> Cannot read source PNG\n"; return false; }
 
         $w = imagesx($src); $h = imagesy($src);
 
@@ -269,16 +269,15 @@ class Escpos
         imagefill($resized, 0, 0, $white);
         imagecopyresampled($resized, $src, 0, 0, 0, 0, $newW, $newH, $w, $h);
 
-        if (function_exists('imagegammacorrect')) { imagegammacorrect($resized, 1.0, 0.85); }
         imagefilter($resized, IMG_FILTER_CONTRAST, -40);
 
         $bw = $this->ditherFloydSteinberg($resized);
-        @imagepng($bw, $outPng, 0);
+        imagepng($bw, $outPng, 0);
 
         imagedestroy($src);
         imagedestroy($resized);
         imagedestroy($bw);
-        @unlink($tmp);
+        if (file_exists($tmp)) { unlink($tmp); }
 
         if (file_exists($outPng)) {
             echo '> Saved (' . filesize($outPng) . " bytes)\n";
