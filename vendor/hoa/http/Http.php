@@ -179,6 +179,7 @@ abstract class Http implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param   string  $offset    Header.
      * @return  bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->_headers);
@@ -190,6 +191,7 @@ abstract class Http implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param   string  $offset    Header.
      * @return  string
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (false === $this->offsetExists($offset)) {
@@ -206,6 +208,7 @@ abstract class Http implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param   string  $value     Value.
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->_headers[$offset] = $value;
@@ -219,6 +222,7 @@ abstract class Http implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param   string  $offset    Header.
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->_headers[$offset]);
@@ -231,6 +235,7 @@ abstract class Http implements \ArrayAccess, \IteratorAggregate, \Countable
      *
      * @return  \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new \ArrayIterator($this->getHeaders());
@@ -241,6 +246,7 @@ abstract class Http implements \ArrayAccess, \IteratorAggregate, \Countable
      *
      * @return  int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->getHeaders());

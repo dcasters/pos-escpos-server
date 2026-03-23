@@ -216,7 +216,7 @@ class Server extends Connection
      * @return  resource
      * @throws  \Hoa\Socket\Exception
      */
-    protected function &_open($streamName, Stream\Context $context = null)
+    protected function &_open($streamName, ?Stream\Context $context = null)
     {
         if (null === $context) {
             $this->_master = @stream_socket_server(
@@ -406,6 +406,7 @@ class Server extends Connection
      *
      * @return  \Hoa\Socket\Node
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $current = parent::_current();
