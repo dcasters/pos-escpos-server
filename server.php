@@ -22,13 +22,18 @@ try {
         $rdata = json_decode($data['message']);
         echo '> Received request ', $data['message'], "\n";
 
-        if ($rdata->type == 'check-status') {
+        if ($rdata === null || !isset($rdata->type)) {
+            echo '> Invalid or malformed JSON received', "\n";
+            return;
+        }
+
+        if ($rdata->type === 'check-status') {
 
             $bucket->getSource()->send('Server is running at <br><span>ws://localhost:4661</span>');
 
             return;
 
-        } elseif ($rdata->type == 'open-cashdrawer') {
+        } elseif ($rdata->type === 'open-cashdrawer') {
 
             echo '> Opening cash drawer ', "\n";
 
@@ -60,10 +65,10 @@ try {
 
             return;
 
-        } elseif ($rdata->type == 'print-img') {
+        } elseif ($rdata->type === 'print-img') {
 
             echo '> Printing img', "\n";
-            if (! isset($printer_config) || empty($printer_config)) {
+            if (! isset($rdata->printer_config) || empty($rdata->printer_config)) {
 
                 $receipt_printer = get_receipt_printer();
                 echo '> Trying receipt printer '.$receipt_printer->title, "\n";
@@ -80,7 +85,7 @@ try {
 
                 try {
                     $escpos = new Escpos();
-                    $escpos->load($printer_config);
+                    $escpos->load($rdata->printer_config);
                     $escpos->printImg($rdata->data->text);
                     echo '> Printed', "\n";
                 } catch (Exception $e) {
@@ -89,7 +94,7 @@ try {
 
             }
 
-        } elseif ($rdata->type == 'print-data') {
+        } elseif ($rdata->type === 'print-data') {
 
             echo '> Printing ', "\n";
             $rdata->data = json_decode($rdata->data);
@@ -119,7 +124,7 @@ try {
 
             }
 
-        } elseif ($rdata->type == 'print-receipt') {
+        } elseif ($rdata->type === 'print-receipt') {
 
             echo '> Printing ', "\n";
             if (! isset($rdata->printer_config) || empty($rdata->printer_config)) {
@@ -196,42 +201,51 @@ try {
     echo '> Error: ', $e->getMessage(), "\n";
 }
 
-function read_databsae()
+function read_database(): object
 {
     $file = file_get_contents('database/data.json');
-    $data = $file ? json_decode($file) : null;
+    $data = ($file !== false) ? json_decode($file) : null;
 
-    return empty($printer_configs) ? json_decode(['printers' => [], 'order_printers' => [], 'receipt_printer' => '']) : $data;
+    if (empty($data) || !is_object($data)) {
+        $default = new \stdClass();
+        $default->printers = [];
+        $default->order_printers = [];
+        $default->receipt_printer = '';
+        return $default;
+    }
+
+    return $data;
 }
 
-function get_printers()
+function get_printers(): array
 {
-    $data = read_databsae();
+    $data = read_database();
 
-    return $printer_configs;
+    return isset($data->printers) && is_array($data->printers) ? $data->printers : [];
 }
 
-function get_receipt_printer()
+function get_receipt_printer(): ?object
 {
     $printers = get_printers();
     $receipt_printer = get_receipt_printer_id();
     foreach ($printers as $printer) {
-        if ($printer->id == $receipt_printer) {
+        if (is_object($printer) && isset($printer->id) && $printer->id === $receipt_printer) {
             return $printer;
         }
     }
+    return null;
 }
 
-function get_receipt_printer_id()
+function get_receipt_printer_id(): string
 {
-    $data = read_databsae();
+    $data = read_database();
 
     return ! empty($data->receipt_printer) ? $data->receipt_printer : '';
 }
 
-function get_order_printers()
+function get_order_printers(): array
 {
-    $data = read_databsae();
+    $data = read_database();
 
-    return empty($data->order_printers) ? [] : $data->order_printers;
+    return empty($data->order_printers) ? [] : (array)$data->order_printers;
 }
