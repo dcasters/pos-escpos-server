@@ -108,6 +108,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      * @return  \Hoa\Protocol\Protocol
      * @throws  \Hoa\Protocol\Exception
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($name, $node)
     {
         if (!($node instanceof self)) {
@@ -141,6 +142,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      * @return  \Hoa\Protocol\Protocol
      * @throws  \Hoa\Protocol\Exception
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         if (!isset($this[$name])) {
@@ -160,6 +162,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      * @param   string  $name    Node's name.
      * @return  bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($name)
     {
         return true === array_key_exists($name, $this->_children);
@@ -171,6 +174,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      * @param   string  $name    Node's name to remove.
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($name)
     {
         unset($this->_children[$name]);
@@ -365,6 +369,7 @@ class Node implements \ArrayAccess, \IteratorAggregate
      *
      * @return  \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new \ArrayIterator($this->_children);

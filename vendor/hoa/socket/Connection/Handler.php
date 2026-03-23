@@ -246,7 +246,7 @@ abstract class Handler
      *                                        current node).
      * @return  mixed
      */
-    public function send($message, Socket\Node $node = null)
+    public function send($message, ?Socket\Node $node = null)
     {
         if (null === $node) {
             $node = $this->getConnection()->getCurrentNode();
