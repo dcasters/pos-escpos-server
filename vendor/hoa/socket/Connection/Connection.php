@@ -259,6 +259,7 @@ abstract class Connection
      *
      * @return  int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->getIteratorValues());
@@ -270,6 +271,7 @@ abstract class Connection
      *
      * @return  mixed
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->getIteratorValues());
@@ -280,6 +282,7 @@ abstract class Connection
      *
      * @return  mixed
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->getIteratorValues());
@@ -291,6 +294,7 @@ abstract class Connection
      *
      * @return  bool
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         $iteratorValues = &$this->getIteratorValues();

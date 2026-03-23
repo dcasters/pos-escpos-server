@@ -546,7 +546,7 @@ abstract class Connection
      */
     public function send(
         $message,
-        HoaSocket\Node $node = null,
+        ?HoaSocket\Node $node = null,
         $opcode              = self::OPCODE_TEXT_FRAME,
         $end                 = true
     ) {
